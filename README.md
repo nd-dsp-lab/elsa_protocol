@@ -23,7 +23,7 @@ The following two executable programs will be built.
 - `main_vaf`: Test for the VAF only.
 
 # Data
-```/data``` folder should contain all the preprocessed datasets for LF-PMT experimental evaluations. Read the readME inside the folder to learn how to generate and pre-process the datasets.
+```/data``` folder should contain all the preprocessed datasets for ELSA experimental evaluations. Read the readME inside the folder to learn how to generate and pre-process the datasets.
 
 # VAF Parameters
 
