@@ -1,5 +1,5 @@
-# LF-PMT
-Labeled and Functional Private Membership Test over Distributed Encrypted Datasets 
+# ELSA
+Select-Then-Compute: Encrypted Label Selection and Analytics over Distributed Datasets using FHE
 
 # Dependencies
 
