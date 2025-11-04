@@ -538,7 +538,7 @@ void testFullPipelineRealData(
         inputVec, ptWeights, ptBias, kappa
     );    
     std::cout << std::vector<double>(retVecPlain.begin(), retVecPlain.begin() + 20)  << std::endl;
-    std::cout << "Correct Answer? " << answer[0] << std::endl;
+    std::cout << "Correct Answer: " << answer[0] << std::endl;
 }
 
 
