@@ -13,11 +13,11 @@ Install OpenFHE v1.2.3 via [Link](https://github.com/openfheorg/openfhe-developm
 
 - OS: Ubuntu 22.04 (or similar)
 
-- Build tools: cmake, make, g++, build-essential
+- Build tools: ```cmake, make, g++, build-essential```
 
-- Libraries: libomp-dev, openssl, libssl-dev
+- Libraries: ```libomp-dev, openssl, libssl-dev```
 
-- Optional: parallel, time, git, curl
+- Optional: ```parallel, time, git, curl```
 
 Note: Docker users do not need to install the above on the host.
 
@@ -53,6 +53,8 @@ CMake will place binaries under ```build/```. In Docker, runtime outputs will be
 
 
 # Docker (Recommended)
+
+If Docker is not installed, please refer to [Docker Installation](https://docs.docker.com/engine/install/) to install Docker for Ubuntu 22.04. 
 
 The repository includes a Dockerfile that pins OpenFHE v1.2.3 and builds it inside the container. It also copies the repository to ```/opt/src``` and builds the project out-of-source into ```/opt/build```.
 
