@@ -59,8 +59,8 @@ The repository includes a Dockerfile that pins OpenFHE v1.2.3 and builds it insi
 To test using Docker, first clone the repository:
 
 ```
-git clone
-cd 
+git clone https://github.com/nd-dsp-lab/elsa_protocol.git
+cd elsa_protocol
 ```
 
 ### Build the image
