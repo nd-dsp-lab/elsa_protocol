@@ -100,6 +100,8 @@ docker run --rm -it ndss-elsa /opt/main_pepsi -bitlen 89 -HW 32 -isEncrypted 0
 
 ```/data``` folder contains the preprocessed datasets for testing ELSA's various components in the experimental evaluation. Read the ```README.md``` inside ```/data``` to learn how to generate and pre-process new datasets.
 
+The end-to-end functionality ELSA is tested on VLDP (Vehicle Loan Default Prediction) dataset only due to repository size constraints in GitHub. If you’d like to test ELSA on additional datasets, please use Amazon’s collection here: [Link](https://github.com/amazon-science/fraud-dataset-benchmark).  
+
 # VAF Parameters
 
 The proposed VAF takes several parameters for each domain size.
