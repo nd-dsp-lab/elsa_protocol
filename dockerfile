@@ -27,6 +27,14 @@
   # 3) Project source → /opt/src (assumes Dockerfile at repo root)
   WORKDIR /opt
   COPY . "${SRC_DIR}"
+
+  # 3.5) Make /data resolve to the repo’s data dir expected by the binary -> for running psmt executable 
+  RUN test -d "${SRC_DIR}/data" && ln -s "${SRC_DIR}/data" /data || mkdir -p /data
+
+  # 3.5) Symlinks so ../data and ../logreg resolve correctly at runtime -> for running logreg executable
+  RUN set -eux; \
+  if [ -d "${SRC_DIR}/data" ]    && [ ! -e /data ];    then ln -s "${SRC_DIR}/data"    /data;    fi; \
+  if [ -d "${SRC_DIR}/logreg" ]  && [ ! -e /logreg ];  then ln -s "${SRC_DIR}/logreg"  /logreg;  fi
   
   # 4) Build into /opt and copy final binaries to /opt/
   #    - Out-of-source build at /opt/build
