@@ -1,6 +1,7 @@
 #ifndef LR_UTILS_H
 #define LR_UTILS_H
 
+#include <cstdint> 
 #include <fstream>
 #include <sstream>
 #include <vector>

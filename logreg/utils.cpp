@@ -38,6 +38,12 @@ RawDataBase readDatabase(const std::string& fname, const std::string& fnameAns) 
         
         // Interpret the data
         while (std::getline(ss, cell, ',')) {
+
+            // Remove quotes from the cell
+            if (!cell.empty() && cell.front() == '"' && cell.back() == '"') {
+                cell = cell.substr(1, cell.length() - 2);
+            }
+
             row.push_back(cell);
         }
         
@@ -56,7 +62,9 @@ RawDataBase readDatabase(const std::string& fname, const std::string& fnameAns) 
         //     answer.push_back(0);
         // }
 
-        for (uint32_t i = 1; i < row.size(); i++) {
+        //for (uint32_t i = 1; i < row.size(); i++) {
+        // Skip row[1] (diagnosis column) and start from row[2] onwards
+        for (uint32_t i = 2; i < row.size(); i++) {
 
             buf.push_back(stod(row[i]));
         }
@@ -66,8 +74,8 @@ RawDataBase readDatabase(const std::string& fname, const std::string& fnameAns) 
     std::ifstream fileAns(fnameAns);
     std::getline(fileAns, line);
 
-    std::cout << "HEADER OF THE DATABASE: " << std::endl;
-    std::cout << line << std::endl;
+    // std::cout << "HEADER OF THE DATABASE: " << std::endl;
+    // std::cout << line << std::endl;
 
     while (std::getline(fileAns, line)) {
         std::vector<std::string> row;
@@ -76,6 +84,12 @@ RawDataBase readDatabase(const std::string& fname, const std::string& fnameAns) 
         
         // Interpret the data
         while (std::getline(ss, cell, ',')) {
+
+            // Remove quotes from the cell
+            if (!cell.empty() && cell.front() == '"' && cell.back() == '"') {
+                cell = cell.substr(1, cell.length() - 2);
+            }
+
             row.push_back(cell);
         }
         
@@ -89,7 +103,16 @@ RawDataBase readDatabase(const std::string& fname, const std::string& fnameAns) 
         //     answer.push_back(0);
         // }
         // std::cout << row[1] << std::endl;
-        answer.push_back(stod(row[1]));        
+        
+        
+        //answer.push_back(stod(row[1]));        
+
+        // Convert diagnosis to numeric: M=1, B=0
+        if (row[1] == "M") {
+            answer.push_back(1);
+        } else {
+            answer.push_back(0);
+        }
     }    
  
     return RawDataBase {
