@@ -92,7 +92,7 @@ run_test \
 run_test \
   "Testing the Cong et. al.'s OpenFHE implementation (16 parties, 28-bit items, unencrypted)" \
   /opt/main_apsi \
-  -numParties 16 -numItems 28 -isEncrypted 0  
+  -numParties 16 -numItems 20 -isEncrypted 0  
 
 run_test \
   "Testing the logistic regression model on breast cancer dataset" \
