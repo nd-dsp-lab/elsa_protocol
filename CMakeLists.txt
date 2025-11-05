@@ -126,8 +126,7 @@ target_link_libraries(main PRIVATE psmt_malicious)
 
 
 ##################################################
-# 2) Build the main executable from main_vaf.cpp
-##################################################
+
 
 add_executable(main_vaf
     ${PROJECT_SOURCE_DIR}/src/main_vaf.cpp
@@ -143,8 +142,7 @@ target_include_directories(main_vaf PRIVATE
 target_link_libraries(main_vaf PRIVATE psmt_malicious)
 
 ##################################################
-# 2) Build the main executable from main_vaf.cpp
-##################################################
+
 
 add_executable(main_hash
     ${PROJECT_SOURCE_DIR}/hashing/main_hash.cpp
@@ -162,8 +160,7 @@ target_link_libraries(main_hash PRIVATE psmt_malicious OpenSSL::SSL OpenSSL::Cry
 
 
 ##################################################
-# 2) Build the main executable from main_vaf.cpp
-##################################################
+
 
 add_executable(main_logreg
     ${PROJECT_SOURCE_DIR}/logreg/main_logreg.cpp
@@ -180,8 +177,7 @@ target_include_directories(main_logreg PRIVATE
 target_link_libraries(main_logreg PRIVATE psmt_malicious)
 
 ##################################################
-# 2) Build the main executable from main_vaf.cpp
-##################################################
+
 
 add_executable(main_psmt
     ${PROJECT_SOURCE_DIR}/psmt/main_psmt.cpp
@@ -199,8 +195,7 @@ target_link_libraries(main_psmt PRIVATE psmt_malicious)
 
 
 ##################################################
-# 2) Build the main executable from main_vaf.cpp
-##################################################
+
 
 add_executable(main_pepsi
     ${PROJECT_SOURCE_DIR}/pepsi/main_pepsi.cpp
@@ -217,8 +212,6 @@ target_include_directories(main_pepsi PRIVATE
 target_link_libraries(main_pepsi PRIVATE psmt_malicious)
 
 
-##################################################
-# 2) Build the main executable from main_vaf.cpp
 ##################################################
 
 add_executable(main_apsi

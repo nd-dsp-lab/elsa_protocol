@@ -60,8 +60,8 @@
       make -C /opt/build -j"$(nproc)" && \
       if [ -f /opt/build/main ]; then cp /opt/build/main /opt/; fi && \
       if [ -f /opt/build/main_vaf ]; then cp /opt/build/main_vaf /opt/; fi && \
+      if [ -f /opt/build/main_apsi ]; then cp /opt/build/main_apsi /opt/; fi && \
       mkdir -p /opt/data
   
   # 5) Default workdir
   WORKDIR /opt
-  

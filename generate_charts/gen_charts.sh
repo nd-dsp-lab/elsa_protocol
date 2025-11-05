@@ -34,5 +34,5 @@ echo "[charts] Collecting new figures into $DEST"
 find "$CHART_DIR" -type f \
   \( -iname '*.pdf' -o -iname '*.png' -o -iname '*.svg' \) \
   -newer "$MARKER" -print -exec cp -f {} "$DEST"/ \;
-
-echo "[charts] Done. Figures are in: $DEST"
+echo ""
+echo "[charts] Done. Figures are in: $DEST and ~/artifact_output folders."

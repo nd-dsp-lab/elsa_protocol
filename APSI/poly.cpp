@@ -1,5 +1,7 @@
 #include "poly.h"
 
+using std::size_t; 
+
 std::vector<int64_t> PolyAdd(
     const std::vector<int64_t>& a,
     const std::vector<int64_t>& b,

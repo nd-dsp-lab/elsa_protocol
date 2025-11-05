@@ -2,7 +2,8 @@
 #define APSI_POLY_H
 
 #include <vector>
-#include <cstdint>
+#include <cstddef>   // std::size_t
+#include <cstdint>  
 
 int64_t modInverse(int64_t a, int64_t p);
 

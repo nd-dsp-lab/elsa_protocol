@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # NDSS-ELSA test runner
-# Runs each module inside the 'ndss-elsa' image with clear messages and pass/fail summary.
+# Runs each module inside the 'ndss-elsa' image with clear messages and completed/fail summary.
 
 set -uo pipefail
 
@@ -75,8 +75,8 @@ log "${BOLD}Binaries present in /opt:${RESET}"
 $SUDO $DOCKER_BIN run --rm "$IMAGE" bash -lc 'ls -l /opt | grep -E "(^|- )main" || true'
 log
 
-# NOTE: Your Dockerfile creates a /data symlink pointing to the repo’s data.
-# We therefore use absolute /data paths (no need for -w /opt/src/build).
+# Dockerfile creates a /data symlink pointing to the repo’s data.
+# Use absolute /data paths (no need for -w /opt/src/build).
 
 run_test \
   "Testing the protocol for VLDP (Vehicle Loan Default Prediction) dataset" \
@@ -84,9 +84,15 @@ run_test \
   -DBPath /data/VLDP/ -DBName VLDP -isSim 1 -isCompact 1 -numChunks 4 -itemLen 1 -scalingModSize 44
 
 run_test \
-  "Testing the PEPSI implementation (bitlen=89, HW=32, unencrypted)" \
+  "Testing the PEPSI's OpenFHE implementation (bitlen=89, HW=32, unencrypted)" \
   /opt/main_pepsi \
   -bitlen 89 -HW 32 -isEncrypted 0
+
+
+run_test \
+  "Testing the Cong et. al.'s OpenFHE implementation (16 parties, 28-bit items, unencrypted)" \
+  /opt/main_apsi \
+  -numParties 16 -numItems 28 -isEncrypted 0  
 
 run_test \
   "Testing the logistic regression model on breast cancer dataset" \
@@ -104,10 +110,11 @@ run_test \
   "Testing VAF + wDEP on 10-bit domain (no slotwise windowing)" \
   /opt/main_vaf 6.75 2.59 158.54 2 8 0 22 1
 
+
 hr
 TOTAL=$((pass+fail+skip))
 ELAPSED=$(( $(date +%s) - START_TS ))
-log "${BOLD}Summary:${RESET} ${GREEN}${pass} passed${RESET}, ${RED}${fail} failed${RESET}, ${YELLOW}${skip} skipped${RESET}  (total ${TOTAL}, ${ELAPSED}s)"
+log "${BOLD}Summary:${RESET} ${GREEN}${pass} completed${RESET}, ${RED}${fail} failed${RESET}, ${YELLOW}${skip} skipped${RESET}  (total ${TOTAL}, ${ELAPSED}s)"
 hr
 
 # Exit nonzero if anything failed
