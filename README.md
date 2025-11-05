@@ -79,7 +79,7 @@ From the repo root run the following:
 docker build -t ndss-elsa .
 ```
 
-Note: If your Docker daemon requires elevated privileges, prepend sudo to docker commands.
+Note: If your Docker daemon requires higher privileges, prepend sudo to docker commands.
 
 ### 3. Run the full-test
 
