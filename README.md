@@ -37,11 +37,11 @@ make
 
 Depending on build flags/components, the project produces:
 
-- ```main``` – end-to-end pipeline (slotwise windowing options).
+- ```main``` – slotwise windowing test.
 
 - ```main_vaf``` – VAF + wDEP evaluation.
 
-- ```main_psmt``` – protocol test on tabular datasets (e.g., VLDP).
+- ```main_psmt``` – end-to-end pipeline on VLDP.
 
 - ```main_pepsi``` – PEPSI (USENIX'24) implementation in OpenFHE.
 
