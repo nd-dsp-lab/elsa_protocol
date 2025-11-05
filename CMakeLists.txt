@@ -72,6 +72,17 @@ add_library(psmt_malicious
 
 )
 
+add_library(APSI
+    ${PROJECT_SOURCE_DIR}/APSI/core.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/poly.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/powers.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/sender.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/receiver.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/tests.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/hashing.cpp
+    ${PROJECT_SOURCE_DIR}/APSI/thread_pool_mgr.cpp
+)
+
 # Let the library see your include/ folder
 target_include_directories(psmt_malicious PRIVATE
     ${PROJECT_SOURCE_DIR}/include
@@ -80,12 +91,23 @@ target_include_directories(psmt_malicious PRIVATE
     ${PROJECT_SOURCE_DIR}/pepsi
 )
 
+target_include_directories(APSI PRIVATE
+    ${PROJECT_SOURCE_DIR}/APSI
+)
+
 # Link OpenFHE 
 if(BUILD_STATIC)
     target_link_libraries(psmt_malicious PRIVATE ${OpenFHE_STATIC_LIBRARIES})
 else()
     target_link_libraries(psmt_malicious PRIVATE ${OpenFHE_SHARED_LIBRARIES})
 endif()
+
+if(BUILD_STATIC)
+    target_link_libraries(APSI PRIVATE ${OpenFHE_STATIC_LIBRARIES})
+else()
+    target_link_libraries(APSI PRIVATE ${OpenFHE_SHARED_LIBRARIES})
+endif()
+
 
 ##################################################
 # 1) Build the main executable from main.cpp
@@ -193,3 +215,22 @@ target_include_directories(main_pepsi PRIVATE
 # Finally, link main_vaf:
 
 target_link_libraries(main_pepsi PRIVATE psmt_malicious)
+
+
+##################################################
+# 2) Build the main executable from main_vaf.cpp
+##################################################
+
+add_executable(main_apsi
+    ${PROJECT_SOURCE_DIR}/APSI/main_apsi.cpp
+)
+
+# Let main_vaf see your include/ folder
+target_include_directories(main_apsi PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/APSI
+)
+
+# Finally, link main_vaf:
+
+target_link_libraries(main_apsi PRIVATE APSI OpenSSL::SSL OpenSSL::Crypto)
