@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # NDSS-ELSA test runner
-# Runs each module inside the 'ndss-elsa' image with clear messages and completed/fail summary.
+# Runs each module inside the 'ndss-elsa' image with completed/fail summary.
 
 set -uo pipefail
 
@@ -17,14 +17,12 @@ else
   fi
 fi
 
-# Pretty colors when connected to a TTY
 if [ -t 1 ]; then
   GREEN=$'\e[32m'; RED=$'\e[31m'; YELLOW=$'\e[33m'; BLUE=$'\e[34m'; BOLD=$'\e[1m'; RESET=$'\e[0m'
 else
   GREEN=""; RED=""; YELLOW=""; BLUE=""; BOLD=""; RESET=""
 fi
 
-# Use -it only when in a TTY so non-interactive CI doesn't hang
 IT_FLAG="-i"
 if [ -t 1 ]; then IT_FLAG="-it"; fi
 
@@ -34,7 +32,7 @@ if ! $SUDO $DOCKER_BIN image inspect "$IMAGE" >/dev/null 2>&1; then
   exit 1
 fi
 
-pass=0; fail=0; skip=0
+completed=0; fail=0; skip=0
 START_TS=$(date +%s)
 
 log() { printf "%s\n" "$*"; }
@@ -60,8 +58,8 @@ run_test() {
   local start=$(date +%s)
   if $SUDO $DOCKER_BIN run --rm $IT_FLAG "$IMAGE" "$bin" "$@"; then
     local dur=$(( $(date +%s) - start ))
-    log "${GREEN}PASS${RESET}: ${title} (${dur}s)"
-    pass=$((pass+1))
+    log "${GREEN}COMPLETED${RESET}: ${title} (${dur}s)"
+    completed=$((completed+1))
   else
     local dur=$(( $(date +%s) - start ))
     log "${RED}FAIL${RESET}: ${title} (${dur}s)"
@@ -92,7 +90,7 @@ run_test \
 run_test \
   "Testing the Cong et. al.'s OpenFHE implementation (16 parties, 28-bit items, unencrypted)" \
   /opt/main_apsi \
-  -numParties 16 -numItems 20 -isEncrypted 0  
+  -numParties 16 -numItems 28 -isEncrypted 0  
 
 run_test \
   "Testing the logistic regression model on breast cancer dataset" \
@@ -112,9 +110,9 @@ run_test \
 
 
 hr
-TOTAL=$((pass+fail+skip))
+TOTAL=$((completed+fail+skip))
 ELAPSED=$(( $(date +%s) - START_TS ))
-log "${BOLD}Summary:${RESET} ${GREEN}${pass} completed${RESET}, ${RED}${fail} failed${RESET}, ${YELLOW}${skip} skipped${RESET}  (total ${TOTAL}, ${ELAPSED}s)"
+log "${BOLD}Summary:${RESET} ${GREEN}${completed} completed${RESET}, ${RED}${fail} failed${RESET}, ${YELLOW}${skip} skipped${RESET}  (total ${TOTAL}, ${ELAPSED}s)"
 hr
 
 # Exit nonzero if anything failed
