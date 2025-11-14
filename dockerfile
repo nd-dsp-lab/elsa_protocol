@@ -12,15 +12,19 @@
       PATH="/usr/local/bin:${PATH}"
   
   # 1) System packages (build + useful tools) + Python runtime
-  RUN apt-get update && \
-      apt-get install -y --no-install-recommends \
-        ca-certificates curl git build-essential cmake g++ \
-        libjsonrpccpp-dev libjsonrpccpp-tools \
-        libomp-dev openssl libssl-dev \
-        parallel time tzdata \
-        python3 python3-pip python3-venv \
-        fonts-dejavu-core \
-      && rm -rf /var/lib/apt/lists/*
+  # 2) Enable 'universe' and install system packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    add-apt-repository universe && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+      ca-certificates curl git build-essential cmake g++ \
+      libjsonrpccpp-dev libjsonrpccpp-tools \
+      libomp-dev openssl libssl-dev \
+      parallel time tzdata \
+      python3 python3-pip python3-venv \
+      fonts-dejavu-core && \
+    rm -rf /var/lib/apt/lists/*
   
   # 1.1) Python libs for plotting (headless)
   RUN python3 -m pip install --no-cache-dir \
