@@ -1,4 +1,5 @@
 #include "tests.h"
+#include <sys/stat.h>
 
 // int main() {
 //     // testSingleServer();
@@ -6,6 +7,12 @@
 //     testFullPipelineRealData();
 //     return 0;
 // }
+
+
+bool fileExists(const std::string& path) {
+    struct stat buffer;
+    return (stat(path.c_str(), &buffer) == 0);
+}
 
 
 void printUsage() {
@@ -90,19 +97,46 @@ int main(int argc, char* argv[]) {
     std::cout << "Scaling Mod Size: " << scalingModSize << std::endl;
     std::cout << "Bit Length of IDs: " << actualSize << std::endl;
 
+    if (!fileExists(DBPath)) {
+    std::cerr << "Error: DB file not found: " << DBPath << std::endl;
+    return 1;
+    }
+    
+    if (!fileExists(ansPath)) {
+    std::cerr << "Error: answer file not found: " << ansPath << std::endl;
+    return 1;
+    }
+    
+    if (!fileExists(paramPath)) {
+    std::cerr << "Error: parameter file not found: " << paramPath << std::endl;
+    return 1;
+    }
 
-    if (numChunks == 0) {
-        if (isCompact) {
-            testFullPipelineCompactRealData(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize);
+
+    try {
+        if (numChunks == 0) {
+            if (isCompact) {
+                testFullPipelineCompactRealData(...);
+            } else {
+                testFullPipelineRealData(...);
+            }
         } else {
-            testFullPipelineRealData(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize);
+            if (isCompact) {
+                testFullPipelineCompactRealDataChunks(...);
+            } else {
+                testFullPipelineRealDataChunks(...);
+            }
         }
-    } else {
-        if (isCompact) {
-            testFullPipelineCompactRealDataChunks(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize, numChunks);
-        } else {
-            testFullPipelineRealDataChunks(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize, numChunks);
-        }
+    } catch (const std::length_error& e) {
+    std::cerr << "Caught std::length_error: " << e.what() << std::endl;
+    // maybe print the args to help debugging:
+    std::cerr << "Context: itemLen=" << itemLen
+              << ", numChunks=" << numChunks
+              << ", scalingModSize=" << scalingModSize
+              << ", isSim=" << isSim
+              << ", isCompact=" << isCompact
+              << std::endl;
+                return 1;
     }
 
     
