@@ -116,15 +116,15 @@ int main(int argc, char* argv[]) {
     try {
         if (numChunks == 0) {
             if (isCompact) {
-                testFullPipelineCompactRealData(...);
+                testFullPipelineCompactRealData(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize);
             } else {
-                testFullPipelineRealData(...);
+                testFullPipelineRealData(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize);
             }
         } else {
             if (isCompact) {
-                testFullPipelineCompactRealDataChunks(...);
+                testFullPipelineCompactRealDataChunks(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize, numChunks);
             } else {
-                testFullPipelineRealDataChunks(...);
+                testFullPipelineRealDataChunks(DBPath, ansPath, paramPath, itemLen, isSim, scalingModSize, numChunks);
             }
         }
     } catch (const std::length_error& e) {
