@@ -83,6 +83,13 @@ int main(int argc, char* argv[]) {
     // std::uint32_t isHorizontal = 0; 
     // isHorizontal = stoi(args["-isHorizontal"]);    
 
+    
+    // Ensuring rootDir ends with a slash
+    if (!rootDir.empty() && rootDir.back() != '/' && rootDir.back() != '\\') {
+        rootDir += '/';
+    }
+
+
     std::string DBPath = rootDir + DBName + "_prepared.csv";
     std::string ansPath = rootDir + DBName + "_answer.csv";
     std::string paramPath = rootDir + DBName + "_params.bin";
