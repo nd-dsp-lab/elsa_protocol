@@ -39,4 +39,3 @@ For example, if your database name is CCTFD and it is placed in ```./data/CCTFD/
 This code assumes that the length of each ID is 128-bits. Note: Please use the absolute folder path for the database location for the ```-DBPath``` flag. 
 
 
-###### Enjoy!
