@@ -30,13 +30,13 @@ Here, `-isSim`, `-isCompact`, `-numChunks`, `-itemLen`, `-scalingModSize` denote
 - `-itemLen`: Set the length of IDs. The actual length is `itemLen * 64`.
 - `-scalingModSize`: Set the scaling factor of CKKS.
 
-For example, if your database is placed in ```./data/``` and the name of the database is CCTFD, then the command becomes
+For example, if your database name is CCTFD and it is placed in ```./data/CCTFD/``` folder (i.e., ```CCTFD_answer.csv```, ```CCTFD_params.bin```, and ```CCTFD_prepared.csv``` are placed in ```./data/CCTFD```), then the command becomes
 
 ```
-./main_psmt -DBPath ./data/ -DBName CCTFD -isSim 1 -isCompact 1 -numChunks 0 -itemLen 2 -scalingModSize 44
+./main_psmt -DBPath ./data/CCTFD/ -DBName CCTFD -isSim 1 -isCompact 1 -numChunks 0 -itemLen 2 -scalingModSize 44
 ```
 
-This code assumes that the length of each ID is 128-bits.
+This code assumes that the length of each ID is 128-bits. Note: Please use the absolute folder path for the database location for the ```-DBPath``` flag. 
 
 
 ###### Enjoy!
